@@ -27,6 +27,14 @@ class DB {
   }
 
   create(branch, jira_link, type, active) {
+    const errors = [];
+    if (!branch) errors.push("Branch is required");
+    if (!jira_link) errors.push("Jira Link is required");
+    if (!type) errors.push("Type of ticket is required");
+    if (errors.length) {
+      console.log(chalk.red(errors.join(", \n")));
+      return process.exit(0);
+    }
     this.con.connect((err) => {
       if (err) throw err;
       this.con.query(
