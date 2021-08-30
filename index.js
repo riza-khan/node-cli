@@ -1,6 +1,7 @@
 const axios = require("axios");
 const mysql = require("mysql2");
 const moment = require("moment");
+const chalk = require("chalk");
 
 const con = mysql.createConnection({
   host: "localhost",
@@ -73,7 +74,7 @@ class DB {
           const end = moment(result.updated_at);
           var duration = moment.duration(end.diff(start));
           var hours = duration.asHours();
-          console.log(hours.toFixed(2));
+          console.log(chalk.bold.red(hours.toFixed(2)));
           process.exit(0);
         })
         .catch((e) => {
