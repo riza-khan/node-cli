@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-const [one, two, method, branch, jira_link, type, active] = process.argv;
+const [default1, default2, method, one, two, three, four] = process.argv;
 
 const { db } = require("./index.js");
 
-db[method](branch, jira_link, type, active);
+db[method](one, two, three, four);
