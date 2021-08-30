@@ -45,9 +45,8 @@ class DB {
   toggle(branch) {
     this.con.connect((err) => {
       if (err) throw err;
-      this.con.query(
-        `SELECT active FROM git WHERE branch = '${branch}'`,
-        (err, result, fields) => {
+      this.findByBranch(branch)
+        .then((result) => {
           const currentState = result[0].active === 1 ? 0 : 1;
           this.con.query(
             `UPDATE git SET active = ${currentState} WHERE branch = '${branch}'`,
@@ -60,8 +59,11 @@ class DB {
               process.exit(0);
             }
           );
-        }
-      );
+        })
+        .catch((e) => {
+          console.log(e);
+          process.exit(0);
+        });
     });
   }
 
@@ -70,8 +72,8 @@ class DB {
       if (err) throw err;
       this.findByBranch(branch, "created_at", "updated_at")
         .then((result) => {
-          const start = moment(result.created_at);
-          const end = moment(result.updated_at);
+          const start = moment(result[0].created_at);
+          const end = moment(result[0].updated_at);
           var duration = moment.duration(end.diff(start));
           var hours = duration.asHours();
           console.log(chalk.bold.red(hours.toFixed(2)));
@@ -87,12 +89,12 @@ class DB {
   // Private
   findByBranch(branch, ...columns) {
     return new Promise((resolve, reject) => {
-      const targetColumns = columns.join(", ");
+      const targetColumns = columns.length ? columns.join(", ") : "*";
       this.con.query(
         `SELECT ${targetColumns} FROM git WHERE branch = '${branch}'`,
         (err, result, fields) => {
           if (err) reject(err);
-          resolve(result[0]);
+          resolve(result);
         }
       );
     });
