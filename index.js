@@ -43,6 +43,10 @@ class DB {
   }
 
   toggle(branch) {
+    if (!branch) {
+      console.log(chalk.bold.red("Please enter a branch name"));
+      return process.exit(0);
+    }
     this.con.connect((err) => {
       if (err) throw err;
       this.findByBranch(branch)
