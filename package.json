@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "bin": {
-    "touch5": "martha",
-    "touch1": "edmond"
+    "db": "db"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -15,6 +14,6 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.21.1",
-    "mysql": "^2.18.1"
+    "mysql2": "^2.3.0"
   }
 }
