@@ -18,8 +18,23 @@ class DB {
       if (err) throw err;
       this.con.query("SELECT * FROM git", function (err, result, fields) {
         if (err) throw err;
-        console.log(result);
+        console.table(result);
       });
+    });
+  }
+
+  createBranch(branch, jira_link, type, active) {
+    this.con.connect((err) => {
+      if (err) throw err;
+      this.con.query(
+        `INSERT INTO git (branch, jira_link, type, active) values('${branch}', '${jira_link}', '${type}', ${
+          active ? active : 0
+        })`,
+        function (err, result, fields) {
+          if (err) throw err;
+          console.table(result);
+        }
+      );
     });
   }
 }
