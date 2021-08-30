@@ -53,7 +53,9 @@ class DB {
             (err, result, fields) => {
               console.log(
                 `${branch} is now ${
-                  currentState === 1 ? "Active" : "Deactivated"
+                  currentState === 1
+                    ? chalk.bold.green("Active")
+                    : chalk.bold.red("Deactivated")
                 }`
               );
               process.exit(0);
