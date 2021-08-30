@@ -13,17 +13,18 @@ class DB {
     this.con = con;
   }
 
-  getAllData() {
+  all() {
     this.con.connect((err) => {
       if (err) throw err;
       this.con.query("SELECT * FROM git", function (err, result, fields) {
         if (err) throw err;
         console.table(result);
+        process.exit(0);
       });
     });
   }
 
-  createBranch(branch, jira_link, type, active) {
+  create(branch, jira_link, type, active) {
     this.con.connect((err) => {
       if (err) throw err;
       this.con.query(
@@ -33,6 +34,30 @@ class DB {
         function (err, result, fields) {
           if (err) throw err;
           console.table(result);
+          process.exit(0);
+        }
+      );
+    });
+  }
+
+  toggle(branch) {
+    this.con.connect((err) => {
+      if (err) throw err;
+      this.con.query(
+        `SELECT active FROM git WHERE branch = '${branch}'`,
+        (err, result, fields) => {
+          const currentState = result[0].active === 1 ? 0 : 1;
+          this.con.query(
+            `UPDATE git SET active = ${currentState} WHERE branch = '${branch}'`,
+            (err, result, fields) => {
+              console.log(
+                `${branch} is now ${
+                  currentState === 1 ? "Active" : "Deactivated"
+                }`
+              );
+              process.exit(0);
+            }
+          );
         }
       );
     });
