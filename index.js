@@ -41,9 +41,9 @@ class DB {
         `INSERT INTO git (branch, jira_link, type, active) values('${branch}', '${jira_link}', '${type}', ${
           active ? active : 0
         })`,
-        function (err, result, fields) {
+        (err, result, fields) => {
           if (err) throw err;
-          console.table(result);
+          console.log(chalk.bold.green("Branch Info added successfully!"));
           process.exit(0);
         }
       );
