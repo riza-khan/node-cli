@@ -1,5 +1,8 @@
 #!/usr/bin/env node
 
-const { getAllData } = require("./index.js");
+console.log(process.argv);
+const method = process.argv[2];
 
-getAllData();
+const { db } = require("./index.js");
+
+db[method]();
