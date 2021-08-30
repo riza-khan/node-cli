@@ -1,5 +1,6 @@
 const axios = require("axios");
 const mysql = require("mysql2");
+const moment = require("moment");
 
 const con = mysql.createConnection({
   host: "localhost",
@@ -58,6 +59,40 @@ class DB {
               process.exit(0);
             }
           );
+        }
+      );
+    });
+  }
+
+  time(branch) {
+    this.con.connect((err) => {
+      if (err) throw err;
+      this.findByBranch(branch, "created_at", "updated_at")
+        .then((result) => {
+          const start = moment(result.created_at);
+          const end = moment(result.updated_at);
+          var duration = moment.duration(end.diff(start));
+          var hours = duration.asHours();
+          console.log(hours.toFixed(2));
+          process.exit(0);
+        })
+        .catch((e) => {
+          console.log(e);
+          process.exit(0);
+        });
+    });
+  }
+
+  // Private
+  findByBranch(branch, ...columns) {
+    console.log(columns.join(", ").toString());
+    return new Promise((resolve, reject) => {
+      const targetColumns = columns.join(", ");
+      this.con.query(
+        `SELECT ${targetColumns} FROM git WHERE branch = '${branch}'`,
+        (err, result, fields) => {
+          if (err) reject(err);
+          resolve(result[0]);
         }
       );
     });
