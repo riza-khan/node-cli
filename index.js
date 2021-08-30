@@ -85,7 +85,6 @@ class DB {
 
   // Private
   findByBranch(branch, ...columns) {
-    console.log(columns.join(", ").toString());
     return new Promise((resolve, reject) => {
       const targetColumns = columns.join(", ");
       this.con.query(
