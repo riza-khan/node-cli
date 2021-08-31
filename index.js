@@ -113,7 +113,8 @@ class DB {
       if (err) throw err;
       this.findByBranch(branch, "jira_link", "type")
         .then((result) => {
-          console.log(result);
+          const jiraLink = result[0].jira_link;
+          console.log(jiraLink);
           process.exit(0);
         })
         .catch((e) => {
@@ -139,4 +140,3 @@ class DB {
 const db = new DB(con);
 
 exports.db = db;
-//comment
