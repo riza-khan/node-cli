@@ -114,11 +114,10 @@ class DB {
       this.findByBranch(branch, "jira_link", "type")
         .then((result) => {
           console.log(result);
-          return result;
+          process.exit(0);
         })
         .catch((e) => {
           console.log(e);
-          process.exit(0);
         });
     });
   }
