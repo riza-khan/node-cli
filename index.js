@@ -41,9 +41,9 @@ class DB {
         `INSERT INTO git (branch, jira_link, type, active) values('${branch}', '${jira_link}', '${type}', ${
           active ? active : 0
         })`,
-        function (err, result, fields) {
+        (err, result, fields) => {
           if (err) throw err;
-          console.table(result);
+          console.log(chalk.bold.green("Branch Info added successfully!"));
           process.exit(0);
         }
       );
@@ -104,7 +104,27 @@ class DB {
     });
   }
 
-  // Private
+  find(branch) {
+    if (!branch) {
+      console.log(chalk.bold.red("Please enter a branch name"));
+      return process.exit(0);
+    }
+    this.con.connect((err) => {
+      if (err) throw err;
+      this.findByBranch(branch, "jira_link", "type")
+        .then((result) => {
+          const jira_link = result[0].jira_link;
+          const type = result[0].type;
+          console.log(`Jira Link: ${jira_link} \nType: ${type}`);
+          process.exit(0);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    });
+  }
+
+  // Private method and more comments
   findByBranch(branch, ...columns) {
     return new Promise((resolve, reject) => {
       const targetColumns = columns.length ? columns.join(", ") : "*";
