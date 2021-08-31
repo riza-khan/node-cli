@@ -1,6 +1,6 @@
-# Node CLI
+# Git Database
 
-I'll admit this is a bit overkill. This CLI maintains a database of your git branches along with some meta data.
+I'll admit this is a bit overkill. This Node based CLI maintains a database of your git branches along with some meta data.
 
 This had come out for a need to add some information to the description of a git commit. This repo was the answer to automate that process.
 
