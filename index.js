@@ -113,7 +113,7 @@ class DB {
       if (err) throw err;
       this.findByBranch(branch, "jira_link", "type")
         .then((result) => {
-          console.log(result[0]);
+          console.log(result);
           process.exit(0);
         })
         .catch((e) => {
