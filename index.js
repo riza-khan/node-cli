@@ -104,6 +104,24 @@ class DB {
     });
   }
 
+  find(branch) {
+    if (!branch) {
+      console.log(chalk.bold.red("Please enter a branch name"));
+      return process.exit(0);
+    }
+    this.con.connect((err) => {
+      if (err) throw err;
+      this.findByBranch(branch, "jira_link", "type")
+        .then((result) => {
+          process.exit(result);
+        })
+        .catch((e) => {
+          console.log(e);
+          process.exit(0);
+        });
+    });
+  }
+
   findByBranch(branch, ...columns) {
     return new Promise((resolve, reject) => {
       const targetColumns = columns.length ? columns.join(", ") : "*";
