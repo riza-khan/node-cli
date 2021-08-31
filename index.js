@@ -119,6 +119,7 @@ class DB {
   }
 }
 
+
 const db = new DB(con);
 
 exports.db = db;
