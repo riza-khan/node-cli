@@ -104,7 +104,6 @@ class DB {
     });
   }
 
-  // Private
   findByBranch(branch, ...columns) {
     return new Promise((resolve, reject) => {
       const targetColumns = columns.length ? columns.join(", ") : "*";
