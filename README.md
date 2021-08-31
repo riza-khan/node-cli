@@ -19,3 +19,14 @@ Although it is overkill, there are advantages and it can be expanded endlessly.
 2. Practice Node JS
 3. Have a deeper understanding of git hooks
 4. Have a deeper understanding of MYSQL (or any relational database), because you can now added tables that use common data and create complex unions and calculations.
+
+## Tutorial
+
+Using this program is quite simple. **All** commands are prefixed with the letters `db`.
+
+Followed by the following available methods and params.
+
+1. `all` - No params
+2. `create` - required params: `branch`, `jira_link`, `type`, optional param: `active` which defaults to 1 when you create the branch.
+3. `toggle` - required params: `branch`
+4. `time` - required params: `branch`
