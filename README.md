@@ -16,14 +16,14 @@ You will have to link it to your system so you can use the `db` comment:
 You will need a database in order to use this repo. Adjust `index.js` file accordingly with your database's information.
 You will need to create the database and create a table (called `git`) with the following columns:
 
-| Column Name | DataType     | Key    | Default           | Extra             |
-| ----------- | ------------ | ------ | ----------------- | ----------------- |
-| branch      | varchar(255) | UNIQUE |                   |                   |
-| jira_link   | varchar(255) |        |                   |                   |
-| type        | varchar(255) |        |                   |                   |
-| active      | tinyint      |        |                   |                   |
-| created_at  | timestamp    |        | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
-| updated_at  | timestamp    |        | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
+| Column Name | DataType     | Key    | Default           | Extra                                         |
+| ----------- | ------------ | ------ | ----------------- | --------------------------------------------- |
+| branch      | varchar(255) | UNIQUE |                   |                                               |
+| jira_link   | varchar(255) |        |                   |                                               |
+| type        | varchar(255) |        |                   |                                               |
+| active      | tinyint      |        |                   |                                               |
+| created_at  | timestamp    |        | CURRENT_TIMESTAMP | DEFAULT_GENERATED                             |
+| updated_at  | timestamp    |        | CURRENT_TIMESTAMP | DEFAULT_GENERATED on update CURRENT_TIMESTAMP |
 
 ## Why use this?
 
