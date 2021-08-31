@@ -115,7 +115,7 @@ class DB {
         .then((result) => {
           const jira_link = result[0].jira_link;
           const type = result[0].type;
-          console.log({ jira_link, type });
+          console.log(`Jira Link: ${jira_link} \n Type: ${type}`);
           process.exit(0);
         })
         .catch((e) => {
