@@ -123,6 +123,7 @@ class DB {
         });
     });
   }
+  // Add more comments
 
   findByBranch(branch, ...columns) {
     return new Promise((resolve, reject) => {
