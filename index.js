@@ -123,18 +123,18 @@ class DB {
         });
     });
   }
-  // Add more comments
 
+  // Private method
   findByBranch(branch, ...columns) {
-    return new Promise((resolve, reject) => {
-      const targetColumns = columns.length ? columns.join(", ") : "*";
-      this.con.query(
-        `SELECT ${targetColumns} FROM git WHERE branch = '${branch}'`,
+        return new Promise((resolve, reject) => {
+        const targetColumns = columns.length ? columns.join(", ") : "*";
+    this.con.query(
+      `SELECT ${targetColumns} FROM git WHERE branch = '${branch}'`,
         (err, result, fields) => {
           if (err) reject(err);
           resolve(result);
         }
-      );
+          );
     });
   }
 }
