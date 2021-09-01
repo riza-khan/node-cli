@@ -49,7 +49,7 @@ Followed by the following available methods and params.
 
 The git hooks code is also important to make this work (though not really required):
 
-###`pre-commit`:
+### `pre-commit`:
 
 ```
 #!/usr/bin/env node
@@ -91,5 +91,38 @@ const setupMessageFile = async (file) => {
 };
 
 setupMessageFile(msgFile);
+
+```
+
+### `post-commit`
+
+In order to use this be sure to set you permissions like so: `chmod +x .git/hooks/post-commit`
+
+```
+#!/usr/bin/env node
+
+let { execSync } = require("child_process");
+
+async function saveCommitHash() {
+	try {
+		const hash = await execSync("git rev-parse --verify HEAD", {
+			encoding: "utf-8",
+		});
+
+		const gitBranch = await execSync("git branch --show-current", {
+			encoding: "utf-8",
+		});
+
+		const hashSaved = await execSync(`db hash '${gitBranch}' ${hash}`, {
+			encoding: "utf-8",
+		});
+		return process.exit(0);
+	} catch (e) {
+		console.log(e);
+		process.exit(1);
+	}
+}
+
+saveCommitHash();
 
 ```

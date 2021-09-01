@@ -18,7 +18,7 @@ class DB {
   all() {
     this.con.connect((err) => {
       if (err) throw err;
-      this.con.query("SELECT * FROM git", function (err, result, fields) {
+      this.con.query("SELECT * FROM git", (err, result, fields) => {
         if (err) throw err;
         console.table(result);
         process.exit(0);
@@ -117,6 +117,27 @@ class DB {
           const type = result[0].type;
           console.log(`Jira Link: ${jira_link} \nType: ${type}`);
           process.exit(0);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    });
+  }
+
+  hash(branch, githash) {
+    this.con.connect((err) => {
+      if (err) throw err;
+      this.findByBranch(branch.split("\n").join(""), "branch")
+        .then((result) => {
+          const existingBranch = result[0].branch;
+          this.con.query(
+            `INSERT INTO hash (branch, hash) values('${existingBranch}', '${githash}')`,
+            (err, result, fields) => {
+              if (err) throw err;
+              console.log(`Hash: ${githash} saved`);
+              process.exit(0);
+            }
+          );
         })
         .catch((e) => {
           console.log(e);
